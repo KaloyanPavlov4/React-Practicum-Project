@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # container db
-**/mongo_data/
+mongo-data/
