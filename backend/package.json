@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "npx eslint .",
+    "lintfix": "npx eslint . --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "author": "Kaloyan Pavlov",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@stylistic/eslint-plugin-js": "^4.2.0",
+    "eslint": "^9.25.0",
+    "globals": "^16.0.0",
+    "nodemon": "^3.1.9"
+  }
+}
