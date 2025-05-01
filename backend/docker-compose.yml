@@ -21,7 +21,8 @@ services:
       - 3000:3000
     environment:
       - PORT=3000
-      - MONGO_URL=mongodb://mongoDB:27017
+      - MONGO_URL=mongodb://appUser:password@mongoDB:27017/database?authSource=admin
+      - SECRET=blueberryexplosion
     networks:
       - express-backend
     depends_on:

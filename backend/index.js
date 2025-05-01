@@ -1,14 +1,5 @@
-import express from 'express'
-const app = express()
-import morgan from 'morgan'
-const port = 3001
+import app from './app.js'
 
-app.use(morgan('dev'))
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  console.log(`App listening on https://localhost:${port}`)
+app.listen(process.env.PORT, () => {
+  console.log(`Server started on port ${process.env.PORT}`)
 })
