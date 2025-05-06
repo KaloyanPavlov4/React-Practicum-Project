@@ -3,6 +3,7 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
 import authenticate from './routers/authenticate.js'
+import carPostings from './routers/carPostings.js'
 
 mongoose.set('strictQuery', false)
 mongoose.connect(process.env.MONGO_URL)
@@ -17,5 +18,6 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(cookieParser())
 app.use('/api/auth', authenticate)
+app.use('/api/carPostings', carPostings)
 
 export default app
