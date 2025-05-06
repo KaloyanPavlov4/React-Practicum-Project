@@ -20,6 +20,6 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/api/auth', authenticate)
 app.use('/api/carPostings', carPostings)
-app.use('/api/users')
+app.use('/api/users', users)
 
 export default app
