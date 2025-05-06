@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
 import authenticate from './routers/authenticate.js'
 import carPostings from './routers/carPostings.js'
+import users from './routers/users.js'
 
 mongoose.set('strictQuery', false)
 mongoose.connect(process.env.MONGO_URL)
@@ -19,5 +20,6 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/api/auth', authenticate)
 app.use('/api/carPostings', carPostings)
+app.use('/api/users')
 
 export default app

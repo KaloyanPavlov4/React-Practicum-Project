@@ -13,7 +13,7 @@ const checkCarPosting = (req, _res, next) => {
   next()
 }
 
-router.get('/', async(req, res) => {
+router.get('/', async (req, res) => {
   res.json(await CarPosting.find({}))
 })
 
