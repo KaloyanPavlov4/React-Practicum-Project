@@ -5,19 +5,30 @@ import { userExtractor } from '../utils/middleware.js'
 
 const router = express.Router()
 
+const checkCarPosting = (req, _res, next) => {
+  if(!req.body) throw new Error('Missing body!')
+  if(!(req.body.brand && req.body.model && req.body.yearOfProduction && req.body.mileage && req.body.transmission)) {
+    throw new Error('Missing brand, model, year of production, mileage or transmission')
+  }
+  next()
+}
+
 router.get('/', async(req, res) => {
   res.json(await CarPosting.find({}))
 })
 
 router.get('/:id', async (req, res) => {
-  res.json(await CarPosting.findById(req.params.id))
+  res.json(await CarPosting.findById(req.params.id).populate('by', { username:1, phoneNumber:1 }))
 })
 
-router.post('/', userExtractor, async (req, res) => {
-  const { brand, model, yearOfProduction, horsePower, transmission, images } = req.body
+router.post('/', userExtractor, checkCarPosting, async (req, res) => {
+  const { brand, model, yearOfProduction, mileage, transmission } = req.body
   const userId = req.user.id
 
-  const carPosting = new CarPosting({ 'brand': brand, 'model': model, 'yearOfProduction': yearOfProduction, 'horsePower': horsePower, 'transmission': transmission, 'images': images, 'by': userId })
+  const horsePower = req.body.horsepower ? req.body.horsepower : null
+  const images = req.body.images ? req.body.images : null
+
+  const carPosting = new CarPosting({ 'brand': brand, 'model': model, 'yearOfProduction': yearOfProduction, 'mileage': mileage, 'horsePower': horsePower, 'transmission': transmission, 'images': images, 'by': userId })
   await carPosting.save()
 
   const user = await User.findById(userId)
@@ -27,7 +38,7 @@ router.post('/', userExtractor, async (req, res) => {
   res.json(carPosting)
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', userExtractor, async (req, res) => {
   const carPosting = await CarPosting.findById(req.params.id)
   const user = req.user
 

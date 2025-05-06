@@ -8,8 +8,9 @@ const SECRET = process.env.SECRET
 const router = express.Router()
 
 router.use((req, _res, next) => {
-  if(!(req.body.username && req.body.password && req.body.phoneNumber)) {
-    throw new Error('Missing username, password or phone number!')
+  if(!req.body) throw new Error('Missing body!')
+  if(!(req.body.username && req.body.password)) {
+    throw new Error('Missing username, password!')
   }
 
   next()
@@ -35,7 +36,13 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/register', async (req, res, next) => {
-  const { username, password, phoneNumber } = req.body
+  const { username, password } = req.body
+
+  if(!req.body.phoneNumber) {
+    throw new Error('Missing phone number!')
+  }
+
+  const { phoneNumber } = req.body
 
   const passwordHash = await bcrypt.hash(password, 10)
   const user = new User({ 'username':username, 'password': passwordHash, 'phoneNumber':phoneNumber, 'carPostings':[] })

@@ -14,11 +14,16 @@ const carPostingSchema = new Schema({
     type: Number,
     required: true
   },
-  horsePower: {
-    type: Number
+  mileage: {
+    type: Number,
+    required: true
   },
   transmission: {
-    type: Number
+    type: String,
+    required: true
+  },
+  horsePower: {
+    type: Number,
   },
   images: [{
     type: String
