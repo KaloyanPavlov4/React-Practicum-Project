@@ -19,6 +19,7 @@ const CarAdvertForm = ({ user }) => {
     horsepower: '',
     transmission: '',
     fuel: '',
+    description: '',
     images: [''],
   })
 
@@ -98,6 +99,10 @@ const CarAdvertForm = ({ user }) => {
           <MenuItem value="diesel">Diesel</MenuItem>
           <MenuItem value="electric">Electric</MenuItem>
           <MenuItem value="hybrid">Hybrid</MenuItem>
+        </TextField>
+
+        <TextField label="Description" name="description" fullWidth margin="normal" value={form.description} onChange={handleChange} multiline>
+
         </TextField>
 
         <Box mt={2}>
