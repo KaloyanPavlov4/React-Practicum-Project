@@ -46,8 +46,6 @@ const CarAdvertForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // eslint-disable-next-line no-console
-    console.log(form)
   }
 
   return (
