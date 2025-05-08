@@ -1,6 +1,11 @@
 {
-    "posts": [
-    ],
-    "users": [
-    ]
-  }
+  "posts": [],
+  "users": [
+    {
+      "id": "b716",
+      "username": "admin",
+      "password": "admin",
+      "phone": "admin"
+    }
+  ]
+}

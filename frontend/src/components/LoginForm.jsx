@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { TextField, Button, Typography, Paper } from '@mui/material'
+import { getUserByUsername } from '../services/userService'
 
-const LoginForm = () => {
+const LoginForm = ( { user, setUser, setNotification }) => {
   const [form, setForm] = useState({
     username: '',
     password: '',
@@ -12,8 +13,19 @@ const LoginForm = () => {
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    if(Object.keys(user).length !== 0) {
+      setNotification('You are already logged in!')
+      return
+    }
+    const toSet = await getUserByUsername(form.username)
+    if(toSet === undefined || form.password !== toSet.password) {
+      setNotification('User does not exist or wrong password!')
+      setTimeout(() => setNotification(''), 4000)
+    } else {
+      setUser(toSet)
+    }
   }
 
   return (
