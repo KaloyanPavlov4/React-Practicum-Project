@@ -17,7 +17,7 @@ const RegisterForm = ( { user, setNotification, setUser } ) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if(Object.keys(user).length !== 0) {
+    if(user) {
       setNotification('You are already logged in!')
       return
     }

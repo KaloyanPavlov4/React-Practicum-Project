@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material'
 
-const CarAdvertForm = () => {
+const CarAdvertForm = ({ user }) => {
   const [form, setForm] = useState({
     brand: '',
     model: '',
@@ -21,6 +21,16 @@ const CarAdvertForm = () => {
     fuel: '',
     images: [''],
   })
+
+  if(!user) {
+    return (
+      <Paper elevation={3} sx={{ p: 4, maxWidth: 600, mx: 'auto', mt: 15 }}>
+        <Typography variant='h3'>
+          Please login/register to upload new car postings!
+        </Typography>
+      </Paper>
+    )
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
