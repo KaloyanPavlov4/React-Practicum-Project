@@ -1,5 +1,5 @@
 import React from 'react'
-import { Snackbar, Alert, Button } from '@mui/material'
+import { Snackbar, Alert } from '@mui/material'
 
 function Notification({ notification }) {
 
@@ -12,8 +12,8 @@ function Notification({ notification }) {
         autoHideDuration={3000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert severity="error" variant="filled" sx={{ width: '100%' }}>
-          {notification}
+        <Alert severity={Notification.type} variant="filled" sx={{ width: '100%' }}>
+          {notification.message}
         </Alert>
       </Snackbar>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router'
 import { TextField, Button, Typography, Paper } from '@mui/material'
 import { getUserByUsername, postUser } from '../services/userService'
 
@@ -9,6 +10,8 @@ const RegisterForm = ( { user, setNotification, setUser } ) => {
     phone: '',
   })
 
+  const nav = useNavigate()
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
@@ -18,20 +21,24 @@ const RegisterForm = ( { user, setNotification, setUser } ) => {
     e.preventDefault()
 
     if(user) {
-      setNotification('You are already logged in!')
+      setNotification({ message: 'You are already logged in!', type:'error' })
+      setTimeout(() => setNotification(null), 4000)
       return
     }
     if(!form.username || !form.password || !form.phone) {
-      setNotification('All fields are required!')
-      setTimeout(() => setNotification(''), 4000)
+      setNotification({ message: 'All fields are required!', type:'error' })
+      setTimeout(() => setNotification(null), 4000)
     } else {
       const otherUser = await getUserByUsername(form.username)
       if(otherUser) {
-        setNotification('A user with that username already exists!')
-        setTimeout(() => setNotification(''), 4000)
+        setNotification({ message: 'A user with that username already exists!', type:'error' })
+        setTimeout(() => setNotification(null), 4000)
       } else {
         await postUser(form.username, form.password, form.phone)
         setUser({ username: form.username, password: form.password, phone: form.phone })
+        setNotification({ message: 'You have registered!', type:'success' })
+        setTimeout(() => setNotification(null), 4000)
+        return nav('/')
       }
     }
   }

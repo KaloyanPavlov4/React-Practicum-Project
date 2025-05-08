@@ -29,7 +29,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   padding: '8px 12px',
 }))
 
-const Navigation = () => {
+const Navigation = ({ user, setUser, setNotification }) => {
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -50,6 +50,13 @@ const Navigation = () => {
     if (path) goTo(path)
   }
 
+  const logout = () => {
+    setUser(null)
+    setNotification({ message: 'You have logged out!', type:'success' })
+    setTimeout(() => setNotification(null), 4000)
+    goTo('/')
+  }
+
   return (
     <AppBar
       position='fixed'
@@ -68,7 +75,7 @@ const Navigation = () => {
             <Button variant='text' color='primary' size='small' onClick={() => goTo('/new')}>
                 New Post
             </Button>
-            <Box sx={{ ml: 'auto' }} >
+            {!user && <Box sx={{ ml: 'auto' }} >
               <Button variant='text' color='primary' size='small' onClick={handleClick}>
                 Login/Register
               </Button>
@@ -88,7 +95,10 @@ const Navigation = () => {
                 <MenuItem onClick={() => handleClose('/login')}>Login</MenuItem>
                 <MenuItem onClick={() => handleClose('/register')}>Register</MenuItem>
               </Menu>
-            </Box>
+            </Box>}
+            {user && <Button sx={{ ml:'auto' }} variant='text' color='primary' size='small' onClick={logout}>
+                Logout
+            </Button> }
           </Box>
           <Box
             sx={{
@@ -123,8 +133,9 @@ const Navigation = () => {
                 </Box>
 
                 <MenuItem onClick={() => goTo('/new')}>New Post</MenuItem>
-                <MenuItem onClick={() => goTo('/login')}>Login</MenuItem>
-                <MenuItem onClick={() => goTo('/register')}>Register</MenuItem>
+                {!user && <MenuItem onClick={() => goTo('/login')}>Login</MenuItem>}
+                {!user && <MenuItem onClick={() => goTo('/register')}>Register</MenuItem>}
+                {user && <MenuItem onClick={logout}>Logout</MenuItem>}
               </Box>
             </Drawer>
           </Box>

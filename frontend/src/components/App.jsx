@@ -10,12 +10,12 @@ import { useState } from 'react'
 
 function App() {
   const [user, setUser] = useState(null)
-  const [notification, setNotification] = useState('')
+  const [notification, setNotification] = useState(null)
 
   return (
     <Container>
       <BrowserRouter>
-        <Navigation/>
+        <Navigation user={user} setUser={setUser} setNotification={setNotification}/>
         <Notification notification={notification}/>
         <Routes>
           <Route path='/' element={<Placeholder/>} />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router'
 import { TextField, Button, Typography, Paper } from '@mui/material'
 import { getUserByUsername } from '../services/userService'
 
@@ -8,6 +9,8 @@ const LoginForm = ( { user, setUser, setNotification }) => {
     password: '',
   })
 
+  const nav = useNavigate()
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
@@ -16,15 +19,19 @@ const LoginForm = ( { user, setUser, setNotification }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if(user) {
-      setNotification('You are already logged in!')
+      setNotification({ message: 'You are already logged in!', type:'error' })
+      setTimeout(() => setNotification(null), 4000)
       return
     }
     const toSet = await getUserByUsername(form.username)
     if(toSet === undefined || form.password !== toSet.password) {
-      setNotification('User does not exist or wrong password!')
-      setTimeout(() => setNotification(''), 4000)
+      setNotification({ message: 'User does not exist or password is incorrect!', type:'error' })
+      setTimeout(() => setNotification(null), 4000)
     } else {
       setUser(toSet)
+      setNotification({ message: 'You have logged in!', type:'success' })
+      setTimeout(() => setNotification(null), 4000)
+      return nav('/')
     }
   }
 
