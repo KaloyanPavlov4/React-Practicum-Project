@@ -1,5 +1,32 @@
 {
-  "posts": [],
+  "posts": [
+    {
+      "id": "258a",
+      "brand": "Opel",
+      "model": "Astra",
+      "year": "1998",
+      "mileage": "200000",
+      "horsepower": "75",
+      "transmission": "manual",
+      "fuel": "petrol",
+      "description": "Best car",
+      "images": [
+        "https://www.automoli.com/common/vehicles/_assets/img/gallery/f38/opel-astra-g.jpg"
+      ]
+    }
+  ],
   "users": [
+    {
+      "id": "6c62",
+      "username": "Kaloyan",
+      "password": "123",
+      "phone": "112"
+    },
+    {
+      "id": "2d2f",
+      "username": "Kaloya",
+      "password": "1234",
+      "phone": "112"
+    }
   ]
 }
