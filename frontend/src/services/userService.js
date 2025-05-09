@@ -3,7 +3,8 @@ import axios from 'axios'
 const url = 'http://localhost:3000/users'
 
 async function getUser(id) {
-  return await axios.get(`${url}/${id}`).data
+  const response = await axios.get(`${url}/${id}`)
+  return response.data
 }
 
 async function getUserByUsername(username) {
@@ -14,7 +15,7 @@ async function getUserByUsername(username) {
 async function postUser(username, password, phone) {
   return await axios.post(url, {
     username, password, phone
-  }).data
+  })
 }
 
 export { getUser, getUserByUsername, postUser }
