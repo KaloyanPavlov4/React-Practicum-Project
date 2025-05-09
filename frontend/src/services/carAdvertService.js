@@ -14,9 +14,10 @@ async function getPost(id) {
 
 
 async function postPost(form, userId) {
+  console.log(userId)
   return await axios.post(url, {
     ...form,
-    userId
+    userId: userId
   })
 }
 

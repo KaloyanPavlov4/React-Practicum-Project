@@ -12,7 +12,7 @@ function Notification({ notification }) {
         autoHideDuration={3000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert severity={Notification.type} variant="filled" sx={{ width: '100%' }}>
+        <Alert severity={notification.type} variant="filled" sx={{ width: '100%' }}>
           {notification.message}
         </Alert>
       </Snackbar>
