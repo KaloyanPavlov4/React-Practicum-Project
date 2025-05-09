@@ -23,15 +23,21 @@ const LoginForm = ( { user, setUser, setNotification }) => {
       setTimeout(() => setNotification(null), 4000)
       return
     }
-    const toSet = await getUserByUsername(form.username)
-    if(toSet === undefined || form.password !== toSet.password) {
-      setNotification({ message: 'User does not exist or password is incorrect!', type:'error' })
+    try {
+      const toSet = await getUserByUsername(form.username)
+      if (!toSet || form.password !== toSet.password) {
+        setNotification({ message: 'User does not exist or password is incorrect!', type: 'error' })
+        setTimeout(() => setNotification(null), 4000)
+      } else {
+        setUser(toSet)
+        setNotification({ message: 'You have logged in!', type: 'success' })
+        setTimeout(() => setNotification(null), 4000)
+        return nav('/')
+      }
+    // eslint-disable-next-line no-unused-vars
+    } catch (error) {
+      setNotification({ message: 'Login failed. Please try again later.', type: 'error' })
       setTimeout(() => setNotification(null), 4000)
-    } else {
-      setUser(toSet)
-      setNotification({ message: 'You have logged in!', type:'success' })
-      setTimeout(() => setNotification(null), 4000)
-      return nav('/')
     }
   }
 

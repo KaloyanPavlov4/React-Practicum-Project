@@ -29,16 +29,28 @@ const RegisterForm = ( { user, setNotification, setUser } ) => {
       setNotification({ message: 'All fields are required!', type:'error' })
       setTimeout(() => setNotification(null), 4000)
     } else {
-      const otherUser = await getUserByUsername(form.username)
-      if(otherUser) {
-        setNotification({ message: 'A user with that username already exists!', type:'error' })
+      try {
+        const otherUser = await getUserByUsername(form.username)
+        if (otherUser) {
+          setNotification({ message: 'A user with that username already exists!', type: 'error' })
+          setTimeout(() => setNotification(null), 4000)
+        } else {
+          try {
+            await postUser(form.username, form.password, form.phone)
+            setUser({ username: form.username, password: form.password, phone: form.phone })
+            setNotification({ message: 'You have registered!', type: 'success' })
+            setTimeout(() => setNotification(null), 4000)
+            return nav('/')
+          // eslint-disable-next-line no-unused-vars
+          } catch (error) {
+            setNotification({ message: 'Error registering user. Please try again.', type: 'error' })
+            setTimeout(() => setNotification(null), 4000)
+          }
+        }
+      // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        setNotification({ message: 'Error checking username. Please try again.', type: 'error' })
         setTimeout(() => setNotification(null), 4000)
-      } else {
-        await postUser(form.username, form.password, form.phone)
-        setUser({ username: form.username, password: form.password, phone: form.phone })
-        setNotification({ message: 'You have registered!', type:'success' })
-        setTimeout(() => setNotification(null), 4000)
-        return nav('/')
       }
     }
   }
