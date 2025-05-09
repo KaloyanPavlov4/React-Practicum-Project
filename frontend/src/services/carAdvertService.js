@@ -24,4 +24,4 @@ async function deletePost(id) {
   return await axios.delete(`${url}/${id}`)
 }
 
-export { getAllPosts, getPost, postPost }
+export { getAllPosts, getPost, postPost, deletePost }

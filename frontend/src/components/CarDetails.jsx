@@ -6,15 +6,19 @@ import {
   Grid,
   Paper,
   Divider,
+  Button
 } from '@mui/material'
 import notFoundImage from '../assets/notFound.jpg'
 import { getPost } from '../services/carAdvertService'
 import { getUser } from '../services/userService'
+import { useNavigate } from 'react-router'
+import { deletePost } from '../services/carAdvertService'
 
-const CarDetails = () => {
+const CarDetails = ({ loggedInAs }) => {
   const [post, setPost] = useState(null)
   const [user, setUser] = useState({})
   const params = useParams()
+  const nav = useNavigate()
   const id = params.id
 
   useEffect(() => {
@@ -23,6 +27,11 @@ const CarDetails = () => {
       getUser(data.userId).then(by => setUser(by))
     })
   }, [id])
+
+  const deleteCarPost = async () => {
+    await deletePost(post.id)
+    return nav('/')
+  }
 
   if(!post) return
 
@@ -80,6 +89,9 @@ const CarDetails = () => {
       <Typography variant="body1" color="text.primary" paragraph>
         {user.phone}
       </Typography>
+      {loggedInAs && loggedInAs.id === post.userId && <Button onClick={deleteCarPost} variant="contained" color="primary" fullWidth sx={{ mt: 3 }}>
+        Delete
+      </Button>}
     </Box>
   )
 }
