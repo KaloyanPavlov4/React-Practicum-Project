@@ -8,6 +8,7 @@ import LoginForm from './LoginForm'
 import CarAdvertForm from './CarAdvertForm'
 import { useState } from 'react'
 import CarList from './CarList'
+import CarDetails from './CarDetails'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -21,7 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<CarList/>} />
           <Route path='/new' element={<CarAdvertForm user={user} setNotification={setNotification} />} />
-          <Route path='/post/:id' element={<Placeholder/>}/>
+          <Route path='/post/:id' element={<CarDetails/>}/>
           <Route path='/login' element={<LoginForm user={user} setUser={setUser} setNotification={setNotification}/>}/>
           <Route path='/register' element={<RegisterForm user={user} setUser={setUser} setNotification={setNotification} />} />
           <Route path='*' element={<Placeholder/>} />

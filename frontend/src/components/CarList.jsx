@@ -17,7 +17,7 @@ const CarList = () => {
 
   return (
     <Grid container spacing={2} mt={15}>
-      {carPosts.map(data => <CarCard form={data}></CarCard>)}
+      {carPosts.map(data => <CarCard key={data.id} form={data}></CarCard>)}
     </Grid>
   )
 }

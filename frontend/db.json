@@ -1,5 +1,27 @@
 {
-  "posts": [],
+  "posts": [
+    {
+      "id": "9dfa",
+      "brand": "Opel",
+      "model": "Astra",
+      "year": "1231",
+      "mileage": "1231",
+      "horsepower": "1231",
+      "transmission": "manual",
+      "fuel": "petrol",
+      "description": "",
+      "images": [
+        ""
+      ],
+      "userId": "6361"
+    }
+  ],
   "users": [
+    {
+      "id": "6361",
+      "username": "Kaloyan",
+      "password": "admin",
+      "phone": "12345"
+    }
   ]
 }

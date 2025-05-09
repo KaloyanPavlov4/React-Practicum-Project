@@ -6,10 +6,20 @@ import {
   Typography,
 } from '@mui/material'
 import notFoundImage from '../assets/notFound.jpg'
+import { useNavigate } from 'react-router'
 
 const CarCard = ({ form }) => {
+  const nav = useNavigate()
+
+  const navigateToPost = () => {
+    return nav(`/post/${form.id}`)
+  }
+
   return (
-    <Card sx={{ maxWidth: 345, m: 2 }}>
+    <Card onClick={navigateToPost} sx={{ maxWidth: 345, m: 2, cursor: 'pointer',
+      '&:hover': {
+        transform: 'scale(1.05)',
+      } }}>
       {form.images[0] && (
         <CardMedia
           component="img"

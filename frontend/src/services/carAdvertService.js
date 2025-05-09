@@ -20,4 +20,8 @@ async function postPost(form, userId) {
   })
 }
 
+async function deletePost(id) {
+  return await axios.delete(`${url}/${id}`)
+}
+
 export { getAllPosts, getPost, postPost }
