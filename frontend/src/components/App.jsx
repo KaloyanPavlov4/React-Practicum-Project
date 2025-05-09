@@ -19,7 +19,7 @@ function App() {
         <Notification notification={notification}/>
         <Routes>
           <Route path='/' element={<Placeholder/>} />
-          <Route path='/new' element={<CarAdvertForm user={user} />} />
+          <Route path='/new' element={<CarAdvertForm user={user} setNotification={setNotification} />} />
           <Route path='/post/:id' element={<Placeholder/>}/>
           <Route path='/login' element={<LoginForm user={user} setUser={setUser} setNotification={setNotification}/>}/>
           <Route path='/register' element={<RegisterForm user={user} setUser={setUser} setNotification={setNotification} />} />

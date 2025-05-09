@@ -9,8 +9,10 @@ import {
   IconButton,
 } from '@mui/material'
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material'
+import { postPost } from '../services/carAdvertService'
+import { useNavigate } from 'react-router'
 
-const CarAdvertForm = ({ user }) => {
+const CarAdvertForm = ({ user, setNotification }) => {
   const [form, setForm] = useState({
     brand: '',
     model: '',
@@ -22,6 +24,8 @@ const CarAdvertForm = ({ user }) => {
     description: '',
     images: [''],
   })
+
+  const nav = useNavigate()
 
   if(!user) {
     return (
@@ -55,8 +59,41 @@ const CarAdvertForm = ({ user }) => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+
+    const {
+      brand,
+      model,
+      year,
+      mileage,
+      horsepower,
+      transmission,
+      fuel,
+    } = form
+
+    if (
+      !brand ||
+      !model ||
+      !year ||
+      !mileage ||
+      !horsepower ||
+      !transmission ||
+      !fuel) {
+      setNotification({ message: 'Please fill out all fields and provide valid image URLs.', type: 'error' })
+      setTimeout(() => setNotification(null), 4000)
+      return
+    }
+    try {
+      await postPost(form, user.id)
+      setNotification({ message: 'Advert submitted successfully!', type: 'success' })
+      setTimeout(() => setNotification(null), 4000)
+      return nav('/')
+
+    } catch (error) {
+      setNotification({ message: 'Failed to submit advert. Try again later.', type: 'error' })
+      setTimeout(() => setNotification(null), 4000)
+    }
   }
 
   return (
